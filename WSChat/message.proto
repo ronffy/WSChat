@@ -1,0 +1,30 @@
+syntax = "proto2";
+package kite;
+
+message Header {
+    enum Type {
+        kRequest = 1;
+        kResponse = 2;
+        kAck = 3;
+        kHeartbeat = 4;
+    }
+
+
+    message Request {
+        required string service = 1;
+        required string method = 2;
+        optional bool one_way = 3;
+    }
+
+    message Response {
+        optional uint32 status = 1;
+        optional string errmsg = 2;
+    }
+
+    required uint32 version = 1;
+    required uint64 sequence = 2;
+    required Type type = 3;
+    optional Request request = 4;
+    optional Response response = 5;
+}
+
